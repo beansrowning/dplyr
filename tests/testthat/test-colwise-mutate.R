@@ -405,3 +405,12 @@ test_that("summarise_at() can refer to local variables and columns (#4304)", {
   })
 
 })
+
+test_that("colwise verbs do not handle quosures (#4330)", {
+  expect_error(
+    mutate_at(mtcars, vars(mpg), quo(mean(.)))
+  )
+  expect_error(
+    summarise_at(mtcars, vars(mpg), quo(mean(.)))
+  )
+})
